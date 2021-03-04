@@ -5,6 +5,7 @@ import { getCustomRepository } from "typeorm";
 import { SurveyRepository } from "../repositories/SurveyRepository";
 import { SurveyUserRepository } from "../repositories/SurveyUserRepository";
 import { UserRepository } from "../repositories/UserRepository";
+import SendMailService from "../services/SendMailService";
 
 class SendMailController{
     async execute(request: Request, response: Response){
@@ -36,6 +37,7 @@ class SendMailController{
 
 
         //send e-mail
+        await SendMailService.execute(email, surveyExist.title, surveyExist.description);
         return response.status(200).json(surveyUser)
     }
 }
