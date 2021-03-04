@@ -1,0 +1,65 @@
+{{!-- Handlebars file --}}
+<style>
+    .container{
+        width: 800px;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .value{
+        padding: 10px;
+        background: #8257e6;
+        color: #FFF;
+        border-radius: 6px;
+        width: 15px;
+        text-align: center;
+        text-decoration: none;
+    }
+    .answers{
+        display: flex;
+        justify-content: space-between;
+        width: 350px;
+    }
+    .level{
+        display: flex;
+        margin: 10px;
+        justify-content: space-between;
+        width: 350px;
+    }
+
+</style>
+
+<div class="container">
+    <label>Hello <strong>{{name}}</strong>! How are you?</label>
+
+    <h3>{{title}}</h3>
+    <br/>
+
+    <strong>{{description}}</strong>
+
+    <div class="level">
+        <span>Very unlikely</span>
+        <span>Very likely</span>
+    </div>
+
+    <div class="answers">
+        <a class="value" href="">1</a>
+        <a class="value" href="">2</a>
+        <a class="value" href="">3</a>
+        <a class="value" href="">4</a>
+        <a class="value" href="">5</a>
+        <a class="value" href="">6</a>
+        <a class="value" href="">7</a>
+        <a class="value" href="">8</a>
+        <a class="value" href="">9</a>
+        <a class="value" href="">10</a>
+    </div>
+
+    <br/>
+    <br/>
+    <strong>Your opinion is very important to us!</strong>
+    <h3><strong>WKN</strong>Development</h3>
+
+</div>

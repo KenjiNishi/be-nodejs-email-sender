@@ -2,6 +2,7 @@
 
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
+import {resolve} from 'path';
 import { SurveyRepository } from "../repositories/SurveyRepository";
 import { SurveyUserRepository } from "../repositories/SurveyUserRepository";
 import { UserRepository } from "../repositories/UserRepository";
@@ -37,7 +38,14 @@ class SendMailController{
 
 
         //send e-mail
-        await SendMailService.execute(email, surveyExist.title, surveyExist.description);
+        const npsPath = resolve(__dirname, "..", "views", "emails", "npsMail.hbs");
+
+        const messageVar = {
+            name : userExists.name,
+            title: surveyExist.title,
+            description: surveyExist.description
+        }
+        await SendMailService.execute(email, surveyExist.title, messageVar, npsPath);
         return response.status(200).json(surveyUser)
     }
 }
