@@ -43,7 +43,9 @@ class SendMailController{
         const messageVar = {
             name : userExists.name,
             title: surveyExist.title,
-            description: surveyExist.description
+            description: surveyExist.description,
+            user_id: userExists.id,
+            link: process.env.URL_MAIL
         }
         await SendMailService.execute(email, surveyExist.title, messageVar, npsPath);
         return response.status(200).json(surveyUser)
