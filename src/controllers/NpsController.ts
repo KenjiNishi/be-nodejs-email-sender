@@ -15,18 +15,18 @@ class NpsController{
         const detractors = surveyUsers.filter(
             (survey) => (survey.value >=0 && survey.value<=6)).length
             
-        const promotors = surveyUsers.filter(
+        const promoters = surveyUsers.filter(
             (survey) => (survey.value >=9 && survey.value<=10)).length
 
         //ignore the passives that voted 7-8
 
         const calculate = Number(
-            ((promotors - detractors) / surveyUsers.length * (100)).toFixed(2)
+            ((promoters - detractors) / surveyUsers.length * (100)).toFixed(2)
         );
 
         return response.status(200).json({
             detractors,
-            promotors,
+            promoters,
             totalAnswers : surveyUsers.length,
             nps: calculate
         })
