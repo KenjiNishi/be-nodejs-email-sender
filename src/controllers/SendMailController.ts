@@ -1,5 +1,4 @@
-// handles the jointable surveys_users
-
+// handles the join table surveys_users
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import {resolve} from 'path';
