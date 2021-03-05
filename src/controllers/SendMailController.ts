@@ -29,7 +29,27 @@ class SendMailController{
             })
         }
 
-        //surveys_users
+        //email vars
+        const messageVar = {
+            name : userExists.name,
+            title: surveyExist.title,
+            description: surveyExist.description,
+            user_id: userExists.id,
+            link: process.env.URL_MAIL
+        }
+        const npsPath = resolve(__dirname, "..", "views", "emails", "npsMail.hbs");
+
+        // check survey user
+        const surveyUserExist = await surveyUserRepository.findOne({
+            where: [{user_id : userExists.id}, {value : null}],
+            relations: ["user","survey"]
+        });
+        if (surveyUserExist){
+            await SendMailService.execute(email, surveyExist.title, messageVar, npsPath);
+            return response.status(200).json(surveyUserExist);
+        }
+
+        //create surveys_users
         const surveyUser = surveyUserRepository.create({
             user_id: userExists.id,
             survey_id: surveyExist.id
@@ -38,15 +58,6 @@ class SendMailController{
 
 
         //send e-mail
-        const npsPath = resolve(__dirname, "..", "views", "emails", "npsMail.hbs");
-
-        const messageVar = {
-            name : userExists.name,
-            title: surveyExist.title,
-            description: surveyExist.description,
-            user_id: userExists.id,
-            link: process.env.URL_MAIL
-        }
         await SendMailService.execute(email, surveyExist.title, messageVar, npsPath);
         return response.status(200).json(surveyUser)
     }
