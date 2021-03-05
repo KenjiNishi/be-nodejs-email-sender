@@ -1,5 +1,6 @@
 import { Request, response, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+import { ErrorManager } from '../errors/ErrorManager';
 import { SurveyRepository } from '../repositories/SurveyRepository';
 
 class SurveyController{
@@ -12,9 +13,7 @@ class SurveyController{
             title
         })
         if(exists){
-            return response.status(400).json({
-                error:"Survey already exists!"
-            })
+            throw new ErrorManager("Survey already exist!")
         }
 
         const survey = surveyRepository.create({
@@ -29,15 +28,7 @@ class SurveyController{
     async show(req: Request, res: Response){
         const surveyRepository = getCustomRepository(SurveyRepository);
         const all = await surveyRepository.find();
-
-        if(all.length>0){
-            return res.status(200).json(all);
-        }
-        else{
-            return res.status(400).json({
-                error:"Empty!!!"
-            })
-        }
+        return res.status(200).json(all);
     }
 }
 
